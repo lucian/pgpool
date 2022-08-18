@@ -166,9 +166,9 @@ end_per_testcase(_TestCase, _Config) ->
 squery(_Config) ->
     {ok, 1} = pgpool:squery(pgpool_test, "INSERT INTO films (name, year) VALUES ('First Movie', 1972);"),
     {ok, [
-        {column, <<"id">>, int4, _, _, _},
-        {column, <<"name">>, text, _, _, _},
-        {column, <<"year">>, int4, _, _, _}
+        {column, <<"id">>, int4, _, _, _, _, _, _},
+        {column, <<"name">>, text, _, _, _, _, _, _},
+        {column, <<"year">>, int4, _, _, _, _, _, _}
     ], [
         {<<"1">>, <<"First Movie">>, <<"1972">>}
     ]} = pgpool:squery(pgpool_test, "SELECT * FROM films WHERE year = 1972;").
@@ -176,9 +176,9 @@ squery(_Config) ->
 equery(_Config) ->
     {ok, 1} = pgpool:equery(pgpool_test, "INSERT INTO films (name, year) VALUES ($1, $2);", ["First Movie", 1972]),
     {ok, [
-        {column, <<"id">>, int4, _, _, _},
-        {column, <<"name">>, text, _, _, _},
-        {column, <<"year">>, int4, _, _, _}
+        {column, <<"id">>, int4, _, _, _, _, _, _},
+        {column, <<"name">>, text, _, _, _, _, _, _},
+        {column, <<"year">>, int4, _, _, _, _, _, _}
     ], [
         {1, <<"First Movie">>, 1972}
     ]} = pgpool:equery(pgpool_test, "SELECT * FROM films WHERE year = $1;", [1972]).

@@ -59,28 +59,27 @@ squery(DatabaseName, Sql) ->
     pgpool_worker:squery(DatabaseName, Sql).
 
 -spec squery(DatabaseName :: atom(), Sql :: string() | iodata(), Options :: [pgpool_query_option()]) ->
-    {ok, Count :: non_neg_integer()}
-    | {ok, Count :: non_neg_integer(), Rows :: any()}
-    | {error, no_connection | no_available_connections}.
+          epgsql_cmd_squery:response() | epgsql_sock:error() | {error, no_connection | no_available_connections}.
 squery(DatabaseName, Sql, Options) ->
     pgpool_worker:squery(DatabaseName, Sql, Options).
 
--spec equery(DatabaseName :: atom(), Statement :: string(), Params :: list()) -> any().
+-spec equery(DatabaseName :: atom(), Statement :: string(), Params :: list()) ->
+          epgsql_cmd_equery:response() | epgsql_sock:error() | {error, no_connection | no_available_connections}.
 equery(DatabaseName, Statement, Params) ->
     pgpool_worker:equery(DatabaseName, Statement, Params).
 
 -spec equery(DatabaseName :: atom(), Statement :: string(), Params :: list(), Options :: [pgpool_query_option()]) ->
-    any() | {error, no_available_connections}.
+          epgsql_cmd_equery:response() | epgsql_sock:error() | {error, no_connection | no_available_connections}.
 equery(DatabaseName, Statement, Params, Options) ->
     pgpool_worker:equery(DatabaseName, Statement, Params, Options).
 
 -spec batch(DatabaseName :: atom(), [{Statement :: string(), Params :: list()}]) ->
-    [{ok, Count :: non_neg_integer()} | {ok, Count :: non_neg_integer(), Rows :: any()}].
+          epgsql_cmd_batch:response() | {error, no_connection | no_available_connections}.
 batch(DatabaseName, StatementsWithParams) ->
     pgpool_worker:batch(DatabaseName, StatementsWithParams).
 
 -spec batch(DatabaseName :: atom(), [{Statement :: string(), Params :: list()}], Options :: [pgpool_query_option()]) ->
-    [{ok, Count :: non_neg_integer()} | {ok, Count :: non_neg_integer(), Rows :: any()}] | {error, no_available_connections}.
+          epgsql_cmd_batch:response() | {error, no_available_connections}.
 batch(DatabaseName, StatementsWithParams, Options) ->
     pgpool_worker:batch(DatabaseName, StatementsWithParams, Options).
 
